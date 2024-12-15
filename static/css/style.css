@@ -1,0 +1,105 @@
+/* General Styles */
+body {
+  background-color: #f8f9fa;
+  font-family: Arial, sans-serif;
+}
+
+.card {
+  width: 100%; /* This makes it responsive */
+  max-width: 400px; /* Adjust this value to set the maximum width */
+  border: none;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  background-color: #ffffff;
+}
+
+
+.card-title h4 {
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.card-body {
+  padding: 2rem;
+}
+
+/* Form Styles */
+.form-floating {
+  position: relative;
+}
+
+label {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #6c757d;
+}
+
+input.form-control-sm {
+  font-size: 0.875rem;
+  height: 2.5rem;
+  padding: 0.5rem;
+  border: 1px solid #ced4da;
+  border-radius: 5px;
+}
+
+input.form-control-sm:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+.invalid-feedback {
+  font-size: 0.75rem;
+  color: #dc3545;
+  display: block;
+}
+
+.text-success {
+  font-size: 0.75rem;
+  color: #28a745;
+}
+
+/* Button Styles */
+.btn-primary {
+  background-color: #007bff;
+  border-color: #007bff;
+  font-size: 0.9rem;
+  font-weight: 500;
+  padding: 0.6rem;
+  border-radius: 5px;
+}
+
+.btn-primary:hover {
+  background-color: #0056b3;
+  border-color: #0056b3;
+}
+
+/* Toggle Password */
+.showPasswordToggle {
+  cursor: pointer;
+  color: #6c757d;
+  font-size: 0.8rem;
+}
+
+.showPasswordToggle:hover {
+  text-decoration: underline;
+}
+
+/* Responsiveness */
+@media (max-width: 768px) {
+  .card-body {
+      padding: 1.5rem;
+  }
+
+  .btn-primary {
+      font-size: 0.8rem;
+      padding: 0.5rem;
+  }
+
+  .form-floating input {
+      font-size: 0.8rem;
+  }
+
+  label {
+      font-size: 0.8rem;
+  }
+}
