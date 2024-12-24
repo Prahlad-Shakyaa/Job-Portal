@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="hero-section">
+    <div class="container text-center">
+        <h1>Find Your Dream Job</h1>
+        <p>Explore thousands of job opportunities and connect with top companies.</p>
+        <form method="GET" action="{% url 'search' %}" class="job-search-form">
+            <input type="text" name="q" placeholder="Job title, keywords, or company" required>
+            <input type="text" name="location" placeholder="City or location" required>
+            <button type="submit" class="btn-primary">Search</button>
+        </form>
+    </div>
+</div>
+
+<div class="featured-jobs-section">
+    <div class="container">
+        <h2>Latest Hirings</h2>
+        <div class="job-listings">
+            <!-- Example of a single job card -->
+            {% for job in jobs %}
+            <div class="job-card">
+                <h3>{{ job.title }}</h3>
+                <p>{{ job.company_name }}</p>
+                <p>{{ job.location }}</p>
+                <a href="{% url 'job_detail' job.id %}" class="btn-secondary">View Details</a>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    <div class="clickable-line">
+        <a href="list" class="clickable-link">View All  Jobs</a>
+    </div>
+</div>
+
+<div class="benefits-section">
+    <div class="container">
+        <h2>Why Use Our Portal?</h2>
+        <div class="benefits">
+            <div class="benefit-item">
+                <h3>For Job Seekers</h3>
+                <p>Find the perfect job based on your skills and preferences.</p>
+            </div>
+            <div class="benefit-item">
+                <h3>For Employers</h3>
+                <p>Hire the best talent and grow your business with ease.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="call-to-action">
+    <div class="container text-center">
+        <h2>Ready to Start?</h2>
+        <p>Create your account now and take the first step toward your goals.</p>
+        <a href="{% url 'register' %}" class="btn-primary">Sign Up</a>
+        <a href="{% url 'login' %}" class="btn-secondary">Log In</a>
+    </div>
+</div>
+{% endblock %}

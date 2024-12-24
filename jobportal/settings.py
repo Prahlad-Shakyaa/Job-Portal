@@ -31,17 +31,7 @@ SECRET_KEY = env("SECRET_KEY", default="unsafe-secret-key")
 ALLOWED_HOSTS = []
 
 
-# Database settings
-DATABASES = {
-    'default': {
-        'ENGINE': env('DB_ENGINE'),
-        'NAME': env('DB_NAME'),
-        'USER': env('DB_USER'),
-        'PASSWORD': env('DB_PASSWORD'),
-        'HOST': env('DB_HOST'),
-        'PORT': env('DB_PORT'),
-    }
-}
+
 
 
 
@@ -49,6 +39,7 @@ DATABASES = {
 # Application definition
 
 INSTALLED_APPS = [
+    'jazzmin',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -58,6 +49,8 @@ INSTALLED_APPS = [
     'crispy_forms',
     'authentication',
     'jobs',
+    'design',
+    'profile'
 ]
 
 MIDDLEWARE = [
@@ -72,6 +65,8 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'jobportal.urls'
 
+BASE_DIR = Path(__file__).resolve().parent.parent
+  
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
@@ -101,11 +96,36 @@ WSGI_APPLICATION = 'jobportal.wsgi.application'
 #     }
 # }
 
+# Database settings
+DATABASES = {
+    'default': {
+        'ENGINE': env('DB_ENGINE'),
+        'NAME': env('DB_NAME'),
+        'USER': env('DB_USER'),
+        'PASSWORD': env('DB_PASSWORD'),
+        'HOST': env('DB_HOST'),
+        'PORT': env('DB_PORT'),
+    }
+}
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE':'django.db.backends.mysql',
+#         'NAME':'jobportal',
+#         'USER':'root',
+#         'PASSWORD':'',
+#         'HOST':'localhost',
+#         'PORT':3307,
+#     }
+# }
+
+
+
 
 # sending emails
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_HOST_USER = 'prahladshakya6954@gmail.com'
-EMAIL_HOST_PASSWORD = 'uwmy tuwo rtyc fabm'
+EMAIL_HOST_PASSWORD = 'uwmytuwortycfabm'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'

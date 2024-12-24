@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2>Search Results</h2>
+    {% if query %}
+        <p>Results for: <strong>{{ query }}</strong></p>
+    {% else %}
+        <p>Showing all jobs.</p>
+    {% endif %}
+    
+    <div class="job-listings">
+        {% for job in jobs %}
+            <div class="job-card">
+                <h3>{{ job.title }}</h3>
+                <p><strong>Company:</strong> {{ job.company }}</p>
+                <p><strong>Location:</strong> {{ job.location }}</p>
+                <p><strong>Posted on:</strong> {{ job.posted_date }}</p>
+            </div>
+        {% empty %}
+            <p>No jobs found.</p>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

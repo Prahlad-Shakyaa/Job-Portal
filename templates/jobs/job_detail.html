@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ job.title }}</title>
+</head>
+<body>
+    <h1>{{ job.title }}</h1>
+    <p><strong>Company:</strong> {{ job.company_name }}</p>
+    <p><strong>Location:</strong> {{ job.location }}</p>
+    <p><strong>Job Type:</strong> {{ job.job_type }}</p>
+    <p><strong>Description:</strong></p>
+    <p>{{ job.description }}</p>
+    <p><strong>Requirements:</strong></p>
+    <p>{{ job.requirements }}</p>
+    <p><strong>Salary:</strong> {{ job.salary|default:"Not specified" }}</p>
+    <p><strong>Application Deadline:</strong> {{ job.application_deadline|date:"F j, Y" }}</p>
+    <p><strong>Posted by:</strong> {{ job.created_by.username }}</p>
+    <p><strong>Posted on:</strong> {{ job.created_at|date:"F j, Y" }}</p>
+
+    <a href="{% url 'job_update' job.pk %}">Edit</a> |
+    <a href="{% url 'job_delete' job.pk %}">Delete</a>
+    <br>
+    <a href="{% url 'job_list' %}">Back to Job List</a>
+</body>
+</html>

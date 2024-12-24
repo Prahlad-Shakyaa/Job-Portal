@@ -132,32 +132,39 @@ class VerificationView(View):
         return redirect('login')
     
 
+
 class LoginView(View):
     def get(self, request):
-        return render(request,'auth/login.html')
-    
-    def post(self,request):
-        username = request.POST['username']
-        password = request.POST['password']
+        # If user is already logged in, redirect to homepage or a page of your choice
+        if request.user.is_authenticated:
+            return redirect('job_list')  # Change 'job_list' to your homepage URL name
 
-        if username and password :
+        return render(request, 'auth/login.html')
+    
+    def post(self, request):
+        username = request.POST.get('username')  # Use get() to avoid KeyError
+        password = request.POST.get('password')
+
+        if username and password:
             user = authenticate(username=username, password=password)
             if user:
                 if user.is_active:
                     login(request, user)
-                    messages.success(request,'Welcome, '+user.username+' You are logged in.')
-                    return redirect('add-expenses')
-            
+                    messages.success(request, f'Welcome, {user.username}! You are logged in.')
+                    return redirect('job_list')  # Redirect to the homepage or any other page
+                else:
+                    messages.error(request, 'Account is not active. Please check your email.')
+            else:
+                messages.error(request, 'Invalid credentials. Please try again.')
+        else:
+            messages.error(request, 'Please fill in both username and password.')
 
-                messages.error(request,'Account is not active.please check your email')    
-                return render(request,'auth/login.html')
-            
-            messages.error(request,'Invalid Credentials, try again.')    
-            return render(request,'auth/login.html')
-        messages.error(request,'Please Fill All Fields.')    
-        return render(request,'auth/login.html')
+        return render(request, 'auth/login.html')
+
 
 class LogoutView(View):
     def post(self,request):
         logout(request)
         messages.success(request,"You have been logged Out.")
+        return redirect('login')  # Redirect to login page or any other page
+
