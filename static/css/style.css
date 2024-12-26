@@ -323,3 +323,69 @@ footer {
 .call-to-action .btn-primary:hover {
   background-color: #ffc107;
 }
+
+
+
+.profile-container {
+  margin-top: 20px;
+}
+
+
+.card-header {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.profile-image img {
+  width: 250px; /* Fixed width */
+  height: 250px; /* Fixed height */
+  object-fit: cover; /* Ensures the image is cropped to fit the frame */
+  border-radius: 50%; /* Makes the image circular */
+  border: 3px solid skyblue; /* Optional: Adds a border for styling */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Adds a subtle shadow */
+}
+
+.list-group-item {
+  font-size: 1rem;
+  padding: 10px 15px;
+}
+
+.edit-button {
+  background-color: #007bff;
+  color: white;
+  padding: 10px 20px;
+  text-transform: uppercase;
+  border-radius: 5px;
+  font-size: 1rem;
+  transition: background-color 0.3s ease;
+}
+
+.edit-button:hover {
+  background-color: #0056b3;
+}
+
+
+.card {
+    border-radius: 10px;
+    border: 1px solid #ddd;
+}
+
+.card-header {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.form-control {
+    border-radius: 8px;
+}
+
+.btn-primary {
+    background-color: #007bff;
+    border: none;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+    transform: scale(1.02);
+}

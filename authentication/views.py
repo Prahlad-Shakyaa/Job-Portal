@@ -133,14 +133,15 @@ class VerificationView(View):
     
 
 
+
 class LoginView(View):
     def get(self, request):
-        # If user is already logged in, redirect to homepage or a page of your choice
+        # If user is already logged in, redirect to the role selection page
         if request.user.is_authenticated:
-            return redirect('job_list')  # Change 'job_list' to your homepage URL name
+            return redirect('role_selection')  # Redirect to role selection view
 
         return render(request, 'auth/login.html')
-    
+
     def post(self, request):
         username = request.POST.get('username')  # Use get() to avoid KeyError
         password = request.POST.get('password')
@@ -151,7 +152,7 @@ class LoginView(View):
                 if user.is_active:
                     login(request, user)
                     messages.success(request, f'Welcome, {user.username}! You are logged in.')
-                    return redirect('job_list')  # Redirect to the homepage or any other page
+                    return redirect('role_selection')  # Redirect to the role selection page
                 else:
                     messages.error(request, 'Account is not active. Please check your email.')
             else:

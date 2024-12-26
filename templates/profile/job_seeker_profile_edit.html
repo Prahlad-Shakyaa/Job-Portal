@@ -1,0 +1,89 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-5">
+            <!-- Card for Edit Profile -->
+            <div class="card shadow-sm">
+                <div class="card-header bg-primary text-white text-center">
+                    <h2>Edit Job Seeker Profile</h2>
+                </div>
+                <div class="card-body">
+                    <form method="POST" enctype="multipart/form-data" class="form">
+                        {% csrf_token %}
+                        
+                        <!-- Profile Picture -->
+                        <div class="text-center mb-4">
+                            {% if form.image.value %}
+                                <img src="{{ form.image.value.url }}" alt="Profile Photo" class="rounded-circle" width="120" height="120">
+                            {% else %}
+                                <img src="https://via.placeholder.com/120" alt="Profile Photo" class="rounded-circle" width="120" height="120">
+                            {% endif %}
+                        </div>
+                        <div class="form-group text-center mb-4">
+                            {{ form.image|add_class:"form-control-file" }}
+                            <small class="form-text text-muted">Upload a professional profile photo.</small>
+                        </div>
+
+                        <!-- Name -->
+                        <div class="form-group mb-3">
+                            <label for="id_name" class="form-label"><strong>Full Name</strong></label>
+                            {{ form.name|add_class:"form-control" }}
+                        </div>
+
+                        <!-- Email -->
+                        <div class="form-group mb-3">
+                            <label for="id_email" class="form-label"><strong>Email Address</strong></label>
+                            {{ form.email|add_class:"form-control" }}
+                        </div>
+
+                        <!-- Phone Number -->
+                        <div class="form-group mb-3">
+                            <label for="id_phone_number" class="form-label"><strong>Phone Number</strong></label>
+                            {{ form.phone_number|add_class:"form-control" }}
+                        </div>
+
+                        <!-- Location -->
+                        <div class="form-group mb-3">
+                            <label for="id_location" class="form-label"><strong>Location</strong></label>
+                            {{ form.location|add_class:"form-control" }}
+                        </div>
+
+                        <!-- Education -->
+                        <div class="form-group mb-3">
+                            <label for="id_education" class="form-label"><strong>Education</strong></label>
+                            {{ form.education|add_class:"form-control" }}
+                        </div>
+
+
+                        <!-- Resume -->
+                        <div class="form-group mb-3">
+                            <label for="id_resume" class="form-label"><strong>Resume</strong></label>
+                            {{ form.resume|add_class:"form-control-file" }}
+                            {% if form.resume.value %}
+                                <p class="mt-2"><a href="{{ form.resume.value.url }}" target="_blank">Download Current Resume</a></p>
+                            {% endif %}
+                        </div>
+
+                        <!-- Cover Letter -->
+                        <div class="form-group mb-3">
+                            <label for="id_cover_letter" class="form-label"><strong>Cover Letter</strong></label>
+                            {{ form.cover_letter|add_class:"form-control-file" }}
+                            {% if form.cover_letter.value %}
+                                <p class="mt-2"><a href="{{ form.cover_letter.value.url }}" target="_blank">Download Current Cover Letter</a></p>
+                            {% endif %}
+                        </div>
+
+                        <!-- Submit Button -->
+                        <div class="text-center mt-4">
+                            <a href="{% url 'job_seeker_profile' %}" class="btn btn-primary px-4"><i class="bi bi-save-fill"></i> Save Changes</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

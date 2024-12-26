@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block title %}Employer Profile{% endblock %}
+
+{% block content %}
+    {% if employer_profile %}
+        <h1>{{ employer_profile.company_name }}</h1>
+        <p>{{ employer_profile.company_description }}</p>
+        <p><strong>Website:</strong> <a href="{{ employer_profile.website_url }}" target="_blank">{{ employer_profile.website_url }}</a></p>
+        <p><strong>Location:</strong> {{ employer_profile.location }}</p>
+        <p><strong>Contact:</strong> {{ employer_profile.contact_number }}</p>
+
+        <a href="{% url 'edit_employer_profile' %}" class="btn btn-warning">Edit Profile</a>
+    {% else %}
+        <p>Your employer profile doesn't exist. Please create your profile.</p>
+        <a href="{% url 'edit_employer_profile' %}" class="btn btn-primary">Create Profile</a>
+    {% endif %}
+{% endblock %}

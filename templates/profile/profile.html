@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="profile-container">
+    <div class="profile-header">
+        <h1>User Profile</h1>
+    </div>
+
+    <div class="profile-details">
+        <div class="profile-image">
+            {% if profile.image %}
+                <img src="{{ profile.image.url }}" alt="Profile Photo" class="profile-photo">
+            {% else %}
+                <img src="https://via.placeholder.com/150" alt="Profile Photo" class="profile-photo">
+            {% endif %}
+        </div>
+
+        <div class="profile-info">
+            <h2>{{ profile.user.username }}</h2>
+            <p><strong>Email:</strong> {{ profile.email }}</p>
+            <p><strong>Phone Number:</strong> {{ profile.phone_number }}</p>
+            <p><strong>Location:</strong> {{ profile.location }}</p>
+            <p><strong>Education:</strong> {{ profile.education }}</p>
+            <p><strong>Role:</strong> {{ profile.get_role_display }}</p>
+
+            <div class="file-links">
+                {% if profile.resume %}
+                    <p><strong>Resume:</strong> <a href="{{ profile.resume.url }}" target="_blank">Download</a></p>
+                {% endif %}
+                {% if profile.cover_letter %}
+                    <p><strong>Cover Letter:</strong> <a href="{{ profile.cover_letter.url }}" target="_blank">Download</a></p>
+                {% endif %}
+            </div>
+
+            <a href="{% url 'edit_profile' %}" class="edit-button">Edit Profile</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

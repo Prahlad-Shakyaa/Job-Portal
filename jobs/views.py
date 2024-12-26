@@ -18,6 +18,12 @@ def job_detail(request, pk):
 # Create a new job post
 @login_required
 def job_create(request):
+    profile = request.user.profile  # Get the user's profile
+
+    # Check if the user is an employer
+    if profile.role != 'employer':
+        return redirect('not_authorized')
+    
     if request.method == 'POST':
         form = JobPostForm(request.POST)
         if form.is_valid():
