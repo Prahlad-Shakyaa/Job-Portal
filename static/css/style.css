@@ -389,3 +389,83 @@ footer {
     background-color: #0056b3;
     transform: scale(1.02);
 }
+
+/* Outer container to center the content */
+.outer-container {
+  display: flex;
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically */
+  height: 100vh; /* Full viewport height */
+}
+
+/* Centered container for role selection */
+.role-selection-container {
+  text-align: center;
+  background: white;
+  padding: 30px 40px;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2); /* Shadow for depth */
+}
+
+/* Title styling */
+.role-selection-title {
+  font-size: 2.5rem;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+/* Form styling */
+.role-selection-form {
+  display: flex;
+  justify-content: center; /* Center buttons horizontally */
+  gap: 20px; /* Space between buttons */
+}
+
+/* Button styling */
+.role-button {
+  font-size: 1.2rem;
+  padding: 10px 20px; /* Reduced padding for smaller buttons */
+  width: 140px; /* Fixed width for consistent size */
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: transform 0.2s, background-color 0.3s;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px; /* Space between icon and text */
+  color: white;
+}
+
+/* Specific role buttons */
+.role-button.job-seeker {
+  background: #007bff; /* Blue for Job Seeker */
+}
+
+.role-button.job-seeker:hover {
+  background: #0056b3;
+  transform: scale(1.05);
+}
+
+.role-button.employer {
+  background: #28a745; /* Green for Employer */
+}
+
+.role-button.employer:hover {
+  background: #1e7e34;
+  transform: scale(1.05);
+}
+
+
+
+.form-floating div {
+  margin-bottom: 10px;
+}
+
+.form-floating input[type="radio"] {
+  margin-right: 5px; /* Optional: Add some space between the radio button and the label */
+}
+
+.form-floating label {
+  font-weight: normal;
+}

@@ -1,5 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
+
+from profilee.models import Employer
 from .models import JobPost
 from .forms import JobPostForm
 from django.contrib.auth import logout
@@ -18,21 +20,23 @@ def job_detail(request, pk):
 # Create a new job post
 @login_required
 def job_create(request):
-    profile = request.user.profile  # Get the user's profile
+    # Check if the user has a JobSeeker or Employer profile
+    try:
+        # Check if the user is an employer
+        employer = request.user.employer  # This will raise an exception if not an employer
+    except Employer.DoesNotExist:
+        return redirect('not_authorized')  # Redirect if the user is not an employer
 
-    # Check if the user is an employer
-    if profile.role != 'employer':
-        return redirect('not_authorized')
-    
     if request.method == 'POST':
         form = JobPostForm(request.POST)
         if form.is_valid():
             job = form.save(commit=False)
-            job.created_by = request.user
+            job.created_by = request.user  # Associate the job with the logged-in employer
             job.save()
             return redirect('job_list')
     else:
         form = JobPostForm()
+
     return render(request, 'jobs/job_form.html', {'form': form})
 
 # Update an existing job post

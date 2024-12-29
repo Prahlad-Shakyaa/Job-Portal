@@ -3,16 +3,53 @@
 {% block title %}Employer Profile{% endblock %}
 
 {% block content %}
-    {% if employer_profile %}
-        <h1>{{ employer_profile.company_name }}</h1>
-        <p>{{ employer_profile.company_description }}</p>
-        <p><strong>Website:</strong> <a href="{{ employer_profile.website_url }}" target="_blank">{{ employer_profile.website_url }}</a></p>
-        <p><strong>Location:</strong> {{ employer_profile.location }}</p>
-        <p><strong>Contact:</strong> {{ employer_profile.contact_number }}</p>
-
-        <a href="{% url 'edit_employer_profile' %}" class="btn btn-warning">Edit Profile</a>
-    {% else %}
-        <p>Your employer profile doesn't exist. Please create your profile.</p>
-        <a href="{% url 'edit_employer_profile' %}" class="btn btn-primary">Create Profile</a>
-    {% endif %}
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <!-- Employer Profile Card -->
+                <div class="card shadow-sm">
+                    <div class="card-header bg-white text-center">
+                        <h1>Employer Profile</h1>
+                    </div>
+                    <div class="card-body">
+                        {% if employer %}
+                            <div class="row">
+                                <!-- Profile Information Section -->
+                                <div class="col-md-8">
+                                    <ul class="list-group list-group-flush">
+                                        <li class="list-group-item">
+                                            <strong>Company Name:</strong> {{ employer.company_name }}
+                                        </li>
+                                        <li class="list-group-item">
+                                            <strong>Description:</strong> {{ employer.company_description }}
+                                        </li>
+                                        <li class="list-group-item">
+                                            <strong>Website:</strong> <a href="{{ employer.website_url }}" target="_blank">{{ employer.website_url }}</a>
+                                        </li>
+                                        <li class="list-group-item">
+                                            <strong>Location:</strong> {{ employer.location }}
+                                        </li>
+                                        <li class="list-group-item">
+                                            <strong>Contact:</strong> {{ employer.contact_number }}
+                                        </li>
+                                    </ul>
+                                    
+                                    <!-- Edit Profile Button -->
+                                    <div class="mt-4 text-center">
+                                        <a href="{% url 'edit_employer_profile' %}" class="btn btn-warning px-4">Edit Profile</a>
+                                    </div>
+                                </div>
+                            </div>
+                        {% else %}
+                            <!-- Profile Creation Section -->
+                            <p>Your employer profile doesn't exist. Please create your profile.</p>
+                            <div class="text-center mt-4">
+                                <a href="{% url 'edit_employer_profile' %}" class="btn btn-primary px-4">Create Profile</a>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}

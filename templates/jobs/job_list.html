@@ -4,9 +4,14 @@
 {% block content %}
 <div class="container mt-5">
     <h1 class="text-center mb-4">Job Listings</h1>
-    <div class="text-center mb-4">
-        <a href="{% url 'job_create' %}" class="btn btn-primary">Create New Job</a>
-    </div>
+
+    <!-- Show "Create New Job" button only for Employers -->
+    {% if user.employer %}
+        <div class="text-center mb-4">
+            <a href="{% url 'job_create' %}" class="btn btn-primary">Create New Job</a>
+        </div>
+    {% endif %}
+
     <div class="row">
         {% for job in jobs %}
         <div class="col-md-3 mb-4">

@@ -7,16 +7,6 @@ from django.contrib import messages
 
 
 
-def role_selection(request):
-    if request.method == 'POST':
-        selected_role = request.POST.get('role')
-        if selected_role == 'job_seeker':
-            return redirect('job_seeker_profile')  # Redirect to job seeker profile
-        elif selected_role == 'employer':
-            return redirect('employer_profile')  # Redirect to employer profile
-    return render(request, 'profile/role_selection.html')
-
-
 @login_required
 def job_seeker_profile(request):
     job_seeker, created = JobSeeker.objects.get_or_create(user=request.user)
@@ -40,7 +30,7 @@ def edit_job_seeker_profile(request):
 
 @login_required
 def employer_profile(request):
-    employer, created = Employer.objects.get(user=request.user)
+    employer, created = Employer.objects.get_or_create(user=request.user)
     return render(request, 'profile/employer_profile.html', {'employer': employer})
 
 @login_required
