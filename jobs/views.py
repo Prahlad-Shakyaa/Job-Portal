@@ -1,10 +1,11 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
 
-from profilee.models import Employer
-from .models import JobPost
+from profilee.models import Employer, JobSeeker
+from .models import JobApplication, JobPost
 from .forms import JobPostForm
 from django.contrib.auth import logout
+from django.contrib import messages
 
 
 # List all active job posts
@@ -14,8 +15,22 @@ def job_list(request):
 
 # View a single job post
 def job_detail(request, pk):
-    job = get_object_or_404(JobPost, pk=pk)
-    return render(request, 'jobs/job_detail.html', {'job': job})
+    job = get_object_or_404(JobPost, pk=pk)  # Assuming `JobPost` is your model
+    is_job_seeker = False
+
+    if request.user.is_authenticated:
+        # Check if the user belongs to the 'JobSeeker' group
+        is_job_seeker = JobSeeker.objects.filter(user=request.user).exists()
+
+
+
+
+    context = {
+        'job': job,
+        'is_job_seeker': is_job_seeker,  # Pass this variable to the template
+    }
+
+    return render(request, 'jobs/job_detail.html', context)
 
 # Create a new job post
 @login_required
@@ -60,6 +75,26 @@ def job_delete(request, pk):
         job.delete()
         return redirect('job_list')
     return render(request, 'jobs/job_confirm_delete.html', {'job': job})
+
+
+@login_required
+def job_apply(request, pk):
+    # Ensure the user is a Job Seeker
+    if not JobSeeker.objects.filter(user=request.user).exists():
+        messages.error(request, "Only Job Seekers can apply for jobs.")
+        return redirect('job_detail', pk=pk)
+
+    job = get_object_or_404(JobPost, pk=pk)
+
+    # Check if the user already applied
+    if JobApplication.objects.filter(user=request.user, job=job).exists():
+        messages.warning(request, "You have already applied for this job.")
+        return redirect('job_detail', pk=pk)
+
+    # Save the application
+    JobApplication.objects.create(user=request.user, job=job)
+    messages.success(request, "You have successfully applied for the job.")
+    return redirect('job_detail', pk=pk)
 
 
 

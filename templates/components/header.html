@@ -1,16 +1,22 @@
-  <!-- Header -->
-  <header class="bg-dark text-white py-3">
+<header class="bg-dark text-white py-3">
     <div class="container d-flex justify-content-between align-items-center">
-        <a href="{% url 'home' %}"style="text-decoration: none; color: inherit;"><h2 class="mb-0">Job Portal</h2></a>
-        <nav>
-            <a href="{% url 'job_list' %}" class="text-white text-decoration-none me-3">Home</a>
-            <a href="{% url 'job_create' %}" class="text-white text-decoration-none me-3">Create Job</a>
-            
+        <a href="{% url 'home' %}" style="text-decoration: none; color: inherit;">
+            <h2 class="mb-0">Job Portal</h2>
+        </a>
+        <nav class="d-flex align-items-center">
+            <a href="{% url 'home' %}" class="text-white text-decoration-none me-3">Home</a>
             {% if user.is_authenticated %}
+                {% if job_seeker %}
+                    <a href="{% url 'job_seeker_profile' %}" class="text-white text-decoration-none me-3">Profile</a>
+                {% elif employer %}
+                    <a href="{% url 'employer_profile' %}" class="text-white text-decoration-none me-3">Profile</a>
+                {% else %}
+                    <a href="#" class="text-white text-decoration-none me-3">Profile</a>
+                {% endif %}
                 <span class="text-white me-3">Welcome, {{ user.username }}</span>
-                <form action="{% url 'logout' %}" method="POST" style="display:inline;">
+                <form action="{% url 'logout' %}" method="POST" style="display: inline;">
                     {% csrf_token %}
-                    <button type="submit" class="text-white text-decoration-none border-0 bg-transparent">Logout</button>
+                    <button type="submit" class="btn btn-link text-white text-decoration-none p-0">Logout</button>
                 </form>
             {% else %}
                 <a href="{% url 'login' %}" class="text-white text-decoration-none me-3">Login</a>

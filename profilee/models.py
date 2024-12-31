@@ -1,6 +1,16 @@
 from django.db import models
 from django.contrib.auth.models import User
 
+
+class Profile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    ROLE_CHOICES = [
+        ('job_seeker', 'Job Seeker'),
+        ('employer', 'Employer'),
+    ]
+    role = models.CharField(max_length=20, choices=ROLE_CHOICES, default='job_seeker')
+
+    
 class JobSeeker(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     name = models.CharField(max_length=255)

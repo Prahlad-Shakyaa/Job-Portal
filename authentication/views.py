@@ -111,12 +111,13 @@ class RegistrationView(View):
                 user.is_active = False
                 user.save()
 
-                # After creating the user, assign the role
+                # Assign role based on selection
                 if role == 'job_seeker':
                     JobSeeker.objects.create(user=user, name=username, email=email)
                 elif role == 'employer':
                     Employer.objects.create(user=user, company_name='', company_description='')
 
+                # Send activation email
                 current_site = get_current_site(request)
                 email_body = {
                     'user': user,
@@ -126,21 +127,23 @@ class RegistrationView(View):
                 }
 
                 link = reverse('activate', kwargs={"uidb64": email_body['uid'], "token": email_body['token']})
-
                 email_subject = "Activate Your Account"
                 activate_url = 'http://' + current_site.domain + link
 
                 email = EmailMessage(
                     email_subject,
-                    'Hi ' + user.username + ' Please use this link to verify your Account\n' + activate_url,
+                    f'Hi {user.username},\n\nPlease use this link to verify your account:\n{activate_url}',
                     "noreply@semicolon.com",
                     [email],
                 )
                 EmailThreading(email).start()
+
                 messages.success(request, 'Account created successfully. Please check your email to activate your account.')
                 return render(request, 'auth/register.html')
 
-        return render(request, 'auth/register.html')
+        messages.error(request, 'Username or email already exists.')
+        return render(request, 'auth/register.html', context)
+
 
 
 
