@@ -22,3 +22,11 @@ def homepage(request):
     }
 
     return render(request, 'design/homepage/index.html', context)
+
+
+
+def about_page(request):
+    return render(request, 'design/about.html')
+
+def contact_page(request):
+    return render(request, 'design/contact.html')
