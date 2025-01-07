@@ -1,0 +1,107 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-5 table-container">
+    <h2>All Applicants</h2>
+
+    <!-- Add Export CSV Button -->
+    <div class="mb-3">
+        {% comment %} <a href="{% url 'export_csv' %}" class="btn btn-success"><i class="bi bi-download"></i> Export CSV</a> {% endcomment %}
+        <a href="{% url 'export_all_applicants_csv' %}" class="btn btn-success">
+            <i class="bi bi-download"></i> Export CSV
+        </a>
+        <a href="{% url 'export_all_applicants_excel' %}" class="btn btn-primary">
+            <i class="bi bi-download"></i> Export Excel
+        </a>
+        
+    </div>
+
+    {% if page_obj %}
+        <table class="table table-bordered mt-4">
+            <thead>
+                <tr>
+                    <th>S.N.</th>
+                    <th>Applicant Name</th>
+                    <th>Job Title</th>
+                    <th>Resume</th>
+                    <th>Cover Letter</th>
+                    <th>Applied Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for application in page_obj %}
+                    <tr>
+                        <td>{{ forloop.counter|add:page_obj.start_index|add:"-1" }}</td>
+
+                        <td>{{ application.user.username }}</td>
+                        <td>{{ application.job.title }}</td>
+                        <td>
+                            {% if application.resume %}
+                                <!-- Button style using a link -->
+                                <a href="{{ application.resume.url }}" class="btn btn-danger" download>
+                                    <i class="bi bi-filetype-pdf"></i> Download Resume
+                                </a>
+                            {% else %}
+                                No Resume
+                            {% endif %}
+                        </td>
+                        <td>
+                            {% if application.cover_letter %}
+                                <a href="{{ application.cover_letter.url }}" download>Download Cover Letter</a>
+                            {% else %}
+                                No Cover Letter
+                            {% endif %}
+                        </td>
+                        <td>{{ application.applied_at }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <!-- Pagination Controls -->
+        <nav aria-label="Page navigation" class="d-flex justify-content-end mt-4">
+            <ul class="pagination">
+                {% if page_obj.has_previous %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page=1" aria-label="First">
+                            &laquo;&laquo;
+                        </a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ page_obj.previous_page_number }}" aria-label="Previous">
+                            &laquo;
+                        </a>
+                    </li>
+                {% endif %}
+
+                {% for num in page_obj.paginator.page_range %}
+                    {% if num == page_obj.number %}
+                        <li class="page-item active">
+                            <span class="page-link">{{ num }}</span>
+                        </li>
+                    {% elif num >= page_obj.number|add:'-2' and num <= page_obj.number|add:'2' %}
+                        <li class="page-item">
+                            <a class="page-link" href="?page={{ num }}">{{ num }}</a>
+                        </li>
+                    {% endif %}
+                {% endfor %}
+
+                {% if page_obj.has_next %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ page_obj.next_page_number }}" aria-label="Next">
+                            &raquo;
+                        </a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}" aria-label="Last">
+                            &raquo;&raquo;
+                        </a>
+                    </li>
+                {% endif %}
+            </ul>
+        </nav>
+    {% else %}
+        <p class="text-muted mt-4">No applicants yet.</p>
+    {% endif %}
+</div>
+{% endblock %}

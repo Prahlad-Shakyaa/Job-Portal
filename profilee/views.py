@@ -25,20 +25,53 @@ def job_seeker_profile(request):
     return render(request, 'profile/job_seeker_profile.html', {'job_seeker': job_seeker})
 
 
+# def edit_job_seeker_profile(request):
+#     try:
+#         # Try to get the JobSeeker profile linked to the logged-in user
+#         job_seeker_profile = JobSeeker.objects.get(user=request.user)
+#     except JobSeeker.DoesNotExist:
+#         # If the JobSeeker profile doesn't exist, create a new one
+#         job_seeker_profile = JobSeeker(user=request.user)
+#         job_seeker_profile.save()
+
+#     if request.method == 'POST':
+#         form = JobSeekerProfileForm(request.POST, request.FILES, instance=job_seeker_profile)
+#         if form.is_valid():
+#             form.save()
+#             messages.success(request, 'Your Job Seeker profile has been updated successfully!')
+#             return redirect('job_seeker_profile')  # Redirect to the job seeker profile view
+#     else:
+#         form = JobSeekerProfileForm(instance=job_seeker_profile)
+
+#     return render(request, 'profile/job_seeker_profile_edit.html', {'form': form})
 @login_required
 def edit_job_seeker_profile(request):
-    profile, created = JobSeeker.objects.get_or_create(user=request.user)
+    try:
+        # Try to get the JobSeeker profile linked to the logged-in user
+        job_seeker_profile = JobSeeker.objects.get(user=request.user)
+        print("Job Seeker profile found")
+    except JobSeeker.DoesNotExist:
+        # If the JobSeeker profile doesn't exist, create a new one
+        job_seeker_profile = JobSeeker(user=request.user)
+        job_seeker_profile.save()
+        print("New Job Seeker profile created")
 
     if request.method == 'POST':
-        form = JobSeekerProfileForm(request.POST, request.FILES, instance=profile)
+        print("Received POST request")
+        form = JobSeekerProfileForm(request.POST, request.FILES, instance=job_seeker_profile)
         if form.is_valid():
+            print("Form is valid")
             form.save()
             messages.success(request, 'Your Job Seeker profile has been updated successfully!')
             return redirect('job_seeker_profile')  # Adjust to your profile page URL
+        else:
+            print("Form errors:", form.errors)  # Log form errors
     else:
-        form = JobSeekerProfileForm(instance=profile)
+        print("GET request - Rendering form")
+        form = JobSeekerProfileForm(instance=job_seeker_profile)
 
     return render(request, 'profile/job_seeker_profile_edit.html', {'form': form})
+
 
 @login_required
 def employer_profile(request):

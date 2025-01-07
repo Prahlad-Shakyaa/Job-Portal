@@ -24,6 +24,8 @@ from django.contrib.sites.shortcuts import get_current_site
 from django.urls import reverse
 from validate_email import validate_email
 
+from django.contrib.auth.views import PasswordResetView, PasswordResetDoneView, PasswordResetConfirmView, PasswordResetCompleteView
+
 
 class EmailThreading(threading.Thread):
     def __init__(self,email):
@@ -34,58 +36,7 @@ class EmailThreading(threading.Thread):
         self.email.send(fail_silently = False)
 
 
-#class RegistrationView(View):
-    def get(self, request):
-        return render(request, 'auth/register.html')
-    
-    def post(self, request):
-        username = request.POST['username']
-        email = request.POST['email']
-        password = request.POST['password']
-
-        context={
-            'fieldValues':request.POST
-        }
-
-        if not User.objects.filter(username = username).exists():
-            if not User.objects.filter(email = email).exists():
-                if len(password) < 6:
-                    messages.error(request, 'Password should be at least 6 characters long')
-                    return render(request, 'auth/register.html',context)
-                
-                user = User.objects.create_user(username = username,email = email)
-                user.set_password(password)
-                user.is_active = False
-                user.save()
-
-
-                current_site = get_current_site(request)
-                email_body = {
-                    'user': user,
-                    'domain': current_site.domain,
-                    'uid': urlsafe_base64_encode(force_bytes(user.pk)),
-                    'token': account_activation_token.make_token(user),
-                }
-              
-
-               
-                link = reverse('activate',kwargs = {"uidb64":email_body['uid'],"token":email_body['token']})
-                
-                email_subject = "Activate Your Account"
-                activate_url = 'http://'+ current_site.domain + link
-                
-                email = EmailMessage(
-                    email_subject,
-                    'Hi ' + user.username + 'Please use this link to verify your Account\n' + activate_url,
-                    "noreply@semicolon.com",
-                    [email],
-                   
-                )
-                EmailThreading(email).start()
-                messages.success(request, 'Account created Successfully.')
-                return render(request, 'auth/register.html')
-
-        return render(request, 'auth/register.html')
+# for job seekers
 class RegistrationView(View):
     def get(self, request):
         return render(request, 'auth/register.html')
@@ -94,28 +45,26 @@ class RegistrationView(View):
         username = request.POST['username']
         email = request.POST['email']
         password = request.POST['password']
-        role = request.POST['role']  # Capture the role selection
 
         context = {
             'fieldValues': request.POST
         }
 
+        # Check for username and email uniqueness
         if not User.objects.filter(username=username).exists():
             if not User.objects.filter(email=email).exists():
                 if len(password) < 6:
                     messages.error(request, 'Password should be at least 6 characters long')
                     return render(request, 'auth/register.html', context)
 
+                # Create user
                 user = User.objects.create_user(username=username, email=email)
                 user.set_password(password)
                 user.is_active = False
                 user.save()
 
-                # Assign role based on selection
-                if role == 'job_seeker':
-                    JobSeeker.objects.create(user=user, name=username, email=email)
-                elif role == 'employer':
-                    Employer.objects.create(user=user, company_name='', company_description='')
+                # Assign Job Seeker role
+                JobSeeker.objects.create(user=user, name=username, email=email)
 
                 # Send activation email
                 current_site = get_current_site(request)
@@ -141,8 +90,87 @@ class RegistrationView(View):
                 messages.success(request, 'Account created successfully. Please check your email to activate your account.')
                 return render(request, 'auth/register.html')
 
+        # Error messages for existing username or email
         messages.error(request, 'Username or email already exists.')
         return render(request, 'auth/register.html', context)
+
+
+class EmployerRegistrationView(View):
+    def get(self, request):
+        return render(request, 'auth/employer_register.html')
+
+    def post(self, request):
+        username = request.POST['username']
+        email = request.POST['email']
+        password = request.POST['password']
+        company_name = request.POST.get('company_name', '')
+        company_description = request.POST.get('company_description', '')
+
+        context = {
+            'fieldValues': request.POST
+        }
+
+        # Check for username and email uniqueness
+        if not User.objects.filter(username=username).exists():
+            if not User.objects.filter(email=email).exists():
+                if len(password) < 6:
+                    messages.error(request, 'Password should be at least 6 characters long')
+                    return render(request, 'auth/employer_register.html', context)
+
+                # Create user
+                user = User.objects.create_user(username=username, email=email)
+                user.set_password(password)
+                user.is_active = False
+                user.save()
+
+                # Assign Employer role
+                Employer.objects.create(
+                    user=user,
+                    company_name=company_name,
+                    company_description=company_description
+                )
+
+                # Send activation email
+                current_site = get_current_site(request)
+                email_body = {
+                    'user': user,
+                    'domain': current_site.domain,
+                    'uid': urlsafe_base64_encode(force_bytes(user.pk)),
+                    'token': account_activation_token.make_token(user),
+                }
+
+                link = reverse('activate', kwargs={"uidb64": email_body['uid'], "token": email_body['token']})
+                email_subject = "Activate Your Employer Account"
+                activate_url = 'http://' + current_site.domain + link
+
+                # email = EmailMessage(
+                #     email_subject,
+                #     f'Hi {user.username},\n\nPlease use this link to verify your account:\n{activate_url}',
+                #     "noreply@semicolon.com",
+                #     [email],
+                # )
+                # EmailThreading(email).start()
+                print("Preparing to send email...")
+                try:
+                    email = EmailMessage(
+                        email_subject,
+                        f'Hi {user.username},\n\nPlease use this link to verify your account:\n{activate_url}',
+                        "noreply@semicolon.com",
+                        [email],
+                    )
+                    EmailThreading(email).start()
+                    print("Email sent successfully.")
+                except Exception as e:
+                    print(f"Error sending email: {e}")
+
+
+
+                messages.success(request, 'Account created successfully. Please check your email to activate your account.')
+                return render(request, 'auth/employer_register.html')
+
+        # Error messages for existing username or email
+        messages.error(request, 'Username or email already exists.')
+        return render(request, 'auth/employer_register.html', context)
 
 
 
@@ -228,4 +256,6 @@ class LogoutView(View):
         logout(request)
         messages.success(request,"You have been logged Out.")
         return redirect('login')  # Redirect to login page or any other page
+
+
 

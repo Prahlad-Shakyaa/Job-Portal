@@ -1,0 +1,17 @@
+<!-- templates/jobs/view_applicants.html -->
+<h2>Applicants for "{{ job.title }}"</h2>
+<ul>
+    {% for applicant in applicants %}
+        <li>
+            <strong>{{ applicant.user.username }}</strong> - Applied on {{ applicant.applied_at|date:"Y-m-d H:i" }} <br>
+            <a href="{{ applicant.resume.url }}">Download Resume</a><br>
+            {% if applicant.cover_letter %}
+                <p>Cover Letter: {{ applicant.cover_letter }}</p>
+            {% else %}
+                <p>No cover letter provided.</p>
+            {% endif %}
+        </li>
+    {% empty %}
+        <li>No applicants for this job yet.</li>
+    {% endfor %}
+</ul>

@@ -2,8 +2,8 @@ from django.contrib import admin
 from .models import JobSeeker, Employer
 
 class JobSeekerAdmin(admin.ModelAdmin):
-    list_display = ('user', 'name', 'email', 'phone_number', 'location', 'education', 'role', 'resume', 'cover_letter', 'image')
-    list_filter = ('role', 'location')
+    list_display = ('user', 'name', 'email', 'phone_number', 'location', 'education', 'resume', 'cover_letter', 'image')
+    # list_filter = ('role', 'location')
     search_fields = ('user__username', 'name', 'email', 'phone_number')
     ordering = ('user',)
     readonly_fields = ('user',)  # Make the user field read-only as it's a foreign key
@@ -11,7 +11,7 @@ class JobSeekerAdmin(admin.ModelAdmin):
     # You can customize the form if needed
     fieldsets = (
         (None, {
-            'fields': ('user', 'name', 'email', 'phone_number', 'location', 'education', 'role', 'resume', 'cover_letter', 'image')
+            'fields': ('user', 'name', 'email', 'phone_number', 'location', 'education', 'resume', 'cover_letter', 'image')
         }),
     )
 

@@ -33,7 +33,16 @@ class JobPost(models.Model):
 class JobApplication(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     job = models.ForeignKey(JobPost, on_delete=models.CASCADE)
-    applied_at = models.DateTimeField(auto_now_add=True)
+    resume = models.FileField(upload_to='resumes/')
+    cover_letter = models.TextField(blank=True, null=True)
+    applied_at = models.DateTimeField(auto_now_add=True)    
 
     def __str__(self):
         return f"{self.user.username} applied for {self.job.title}"
+    
+
+
+
+
+
+

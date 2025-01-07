@@ -1,5 +1,5 @@
 from django import forms
-from .models import JobPost
+from .models import JobApplication, JobPost
 
 class JobPostForm(forms.ModelForm):
     class Meta:
@@ -24,3 +24,9 @@ class JobPostForm(forms.ModelForm):
             'salary': forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Enter salary'}),
             'application_deadline': forms.DateInput(attrs={'class': 'form-control', 'type': 'date'}),
         }
+
+
+class JobApplicationForm(forms.ModelForm):
+    class Meta:
+        model = JobApplication
+        fields = ['resume', 'cover_letter']

@@ -18,7 +18,6 @@ class JobSeeker(models.Model):
     location = models.CharField(max_length=255, blank=True)
     education = models.TextField(blank=True)
     email = models.EmailField()
-    role = models.CharField(max_length=100)
     resume = models.FileField(upload_to='resumes/', blank=True, null=True)
     cover_letter = models.FileField(upload_to='cover_letters/', blank=True, null=True)
     image = models.ImageField(upload_to='profile_pictures/', blank=True, null=True)

@@ -9,12 +9,15 @@
         <div class="d-flex justify-content-center">
             <a href="{% url 'home' %}" class="text-white text-decoration-none mx-3">Home</a>
             <a href="{% url 'about' %}" class="text-white text-decoration-none mx-3">About</a>
-            <a href="{% url 'contact' %}" class="text-white text-decoration-none mx-3">Contact Us</a>
+            <a href="{% url 'contact_us' %}" class="text-white text-decoration-none mx-3">Contact Us</a>
             {% if user.is_authenticated %}
                 {% if job_seeker %}
                     <a href="{% url 'job_seeker_profile' %}" class="text-white text-decoration-none mx-3">Profile</a>
                 {% elif employer %}
                     <a href="{% url 'employer_profile' %}" class="text-white text-decoration-none mx-3">Profile</a>
+                    <a href="{% url 'all_applicants' %}" class="text-white text-decoration-none mx-3">Applicants</a>
+                    {% comment %} <a href="{% url 'view_applicants' job.pk %}" class="btn btn-secondary">View Applicants</a> {% endcomment %}
+
                 {% else %}
                     <a href="#" class="text-white text-decoration-none mx-3">Profile</a>
                 {% endif %}
@@ -25,6 +28,16 @@
         <div class="d-flex align-items-center">
             {% if user.is_authenticated %}
                 <span class="text-white mx-3">Welcome, {{ user.username }}</span>
+                
+                <!-- Job Seeker Profile Picture -->
+                <div class="profile-image">
+                    {% if user.jobseeker.image %}
+                        <img src="{{ user.jobseeker.image.url }}" alt="Profile Photo" class="img-fluid rounded-circle shadow-sm mx-3" style="width: 40px; height: 40px; object-fit: cover;">
+                    {% else %}
+                        <img src="https://via.placeholder.com/40" alt="Default Profile Photo" class="img-fluid rounded-circle shadow-sm mx-3" style="width: 40px; height: 40px; object-fit: cover;">
+                    {% endif %}
+                </div>
+                
                 <form action="{% url 'logout' %}" method="POST" style="display: inline;">
                     {% csrf_token %}
                     <button type="submit" class="btn btn-link text-white text-decoration-none p-0 mx-3">Logout</button>
@@ -34,5 +47,7 @@
                 <a href="{% url 'register' %}" class="text-white text-decoration-none mx-3">Signup</a>
             {% endif %}
         </div>
+        
+        
     </div>
 </header>

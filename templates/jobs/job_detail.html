@@ -26,6 +26,8 @@
             <p>Button not visible because you're not a Job Seeker.</p>
         {% endif %}
     
-
+        {% if user.is_authenticated and is_employer %}
+            <a href="{% url 'view_applicants' job.pk %}" class="btn btn-secondary">View Applicants</a>
+        {% endif %}
     </body>
 {% endblock content %}
