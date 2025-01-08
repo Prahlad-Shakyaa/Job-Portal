@@ -20,7 +20,74 @@ body {
   padding-top: 60px;
   padding-bottom: 60px;
 }
+
+
+
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      
+
+
   
+
+
+
+  
+
+
+ 
+ 
+ 
 h1 {
   font-size: 2.5rem;
   font-weight: bold;
@@ -647,4 +714,10 @@ h1 {
     }
 
 
+.alertify-notifier {
+  top: 20px !important; /* Adjust the value as needed */
+  right: 20px !important; /* Adjust the value as needed */
+  left: auto !important;
+  position: fixed !important;
+}
     

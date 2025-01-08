@@ -254,7 +254,7 @@ class LoginView(View):
 class LogoutView(View):
     def post(self,request):
         logout(request)
-        messages.success(request,"You have been logged Out.")
+        messages.info(request,"You have been logged Out.")
         return redirect('login')  # Redirect to login page or any other page
 
 
