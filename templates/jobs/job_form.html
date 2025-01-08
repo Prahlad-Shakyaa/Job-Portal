@@ -1,15 +1,23 @@
 {% extends "base.html" %}
+
 {% block content %}
 <div class="container mt-5">
-    <h1>{% if form.instance.pk %}Update Job{% else %}Create a Job{% endif %}</h1>
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit" class="btn btn-primary">
-            {% if form.instance.pk %}Update{% else %}Submit{% endif %}
-        </button>
-    </form>
-    <a href="{% url 'job_list' %}" class="btn btn-secondary mt-3">Back to Job Listings</a>
+    <div class="card">
+        <div class="card-header">
+            <h1>{% if form.instance.pk %}Update Job{% else %}Create a Job{% endif %}</h1>
+        </div>
+        <div class="card-body">
+            <form method="post">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit" class="btn btn-primary">
+                    {% if form.instance.pk %}Update{% else %}Submit{% endif %}
+                </button>
+            </form>
+        </div>
+        <div class="card-footer text-right">
+            <a href="{% url 'job_list' %}" class="btn btn-secondary mt-3">Back to Job Listings</a>
+        </div>
+    </div>
 </div>
 {% endblock %}
-    

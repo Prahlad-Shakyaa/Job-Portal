@@ -6,7 +6,7 @@ from .forms import ContactForm
 
 def homepage(request):
     # Fetch the latest 3 job posts
-    jobs = JobPost.objects.order_by('-created_at')[:3]
+    jobs = JobPost.objects.order_by('-created_at')[:4]
 
     # Determine user roles
     job_seeker = False

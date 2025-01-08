@@ -2,14 +2,69 @@
 
 {% block content %}
 <div class="container py-5">
-    <h1 class="text-center mb-4">About Us</h1>
-    <p class="text-muted text-center">
-        Welcome to Job Portal! We are dedicated to connecting employers and job seekers in a seamless and efficient way. 
-        Our mission is to make the hiring process simple and effective for everyone.
-    </p>
-    <p class="text-muted text-center">
-        Whether you're looking for the perfect job or the right candidate, we've got you covered.
-        With a user-friendly interface and a growing community, Job Portal is your one-stop destination for employment opportunities.
-    </p>
+    <div class="text-center mb-5">
+        <h1 class="display-4 fw-bold text-primary">About Us</h1>
+        <p class="lead text-muted">
+            Connecting employers and job seekers seamlessly for a brighter future.
+        </p>
+    </div>
+
+    <div class="row align-items-center">
+        <!-- Left Column: Image -->
+        <div class="col-md-6 text-center mb-4 mb-md-0">
+            <img src="https://www.jobsnepal.com/img/dr.jpeg" alt="About Us Image" class="img-fluid rounded shadow">
+        </div>
+
+        <!-- Right Column: Content -->
+        <div class="col-md-6">
+            <h2 class="fw-bold text-secondary">Welcome to Job Portal!</h2>
+            <p class="text-muted">
+                At Job Portal, we are committed to bridging the gap between employers and job seekers. Our mission is to simplify the hiring process, making it effective and accessible for everyone.
+            </p>
+            <p class="text-muted">
+                Whether you're a professional looking for your dream job or an employer searching for top talent, our platform is designed to meet your needs. With a user-friendly interface and an ever-growing community, we are your trusted partner for employment opportunities.
+            </p>
+        </div>
+    </div>
+
+    <!-- Features Section -->
+    <div class="mt-5">
+        <h2 class="text-center fw-bold text-secondary">Why Choose Us?</h2>
+        <div class="row text-center mt-4">
+            <div class="col-md-4">
+                <div class="p-4 border rounded shadow-sm">
+                    <h3 class="text-primary"><i class="bi bi-lightning"></i> Efficiency</h3>
+                    <p class="text-muted">
+                        Streamlined hiring processes and advanced tools for success.
+                    </p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="p-4 border rounded shadow-sm">
+                    <h3 class="text-primary"><i class="bi bi-people"></i> Community</h3>
+                    <p class="text-muted">
+                        A vibrant network of professionals and companies.
+                    </p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="p-4 border rounded shadow-sm">
+                    <h3 class="text-primary"><i class="bi bi-layers"></i> Innovation</h3>
+                    <p class="text-muted">
+                        AI-powered tools for personalized job matching and insights.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Call to Action -->
+    <div class="text-center mt-5">
+        <h3 class="fw-bold text-secondary">Join Us Today!</h3>
+        <p class="text-muted">
+            Explore new opportunities or find your ideal candidate now.
+        </p>
+        <a href="/register" class="btn btn-primary btn-lg px-5">Sign Up</a>
+    </div>
 </div>
 {% endblock %}

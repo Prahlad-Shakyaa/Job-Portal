@@ -3,16 +3,24 @@
   padding: 0;
   box-sizing: border-box;
 }
+header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000; /* Ensures the header stays on top of other content */
+  background-color: lightskyblue; /* Background color to avoid transparency */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional: adds a shadow for separation */
+}
 
-html, body {
+body {
   width: 100%;
   height: 100%;
-}
-
-
-body{
   background-color: lightcyan;
+  padding-top: 60px;
+  padding-bottom: 60px;
 }
+  
 h1 {
   font-size: 2.5rem;
   font-weight: bold;
@@ -20,106 +28,115 @@ h1 {
 }
 
 .container {
+  margin-top: 20px;
   max-width: 100%; /* Change to full width if needed */
   margin: 0 auto;
   padding: 0 20px; /* Adds padding for mobile-friendly spacing */
 }
 
-.job-cards {
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Ensure responsiveness */
-  gap: 20px; /* Controls space between grid items */
-  margin: 0 auto; /* Center alignment */
-  padding: 20px; /* Adds spacing for grid section */
-  width: 100%; /* Fix width to full width */
-}
-
-.card {
-  border-radius: 12px;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-}
-
-.card-title a {
-  color: #007bff;
-  transition: color 0.3s ease;
-}
-
-.card-title a:hover {
-  color: #0056b3;
-  text-decoration: underline;
-}
-
-.btn-primary {
-  padding: 10px 20px;
-  font-size: 1rem;
-  border-radius: 20px;
-}
-
-
-.text-muted {
-  font-size: 0.9rem;
-}
-
-
-html, body {
-  height: 100%; /* Ensure the body takes up the full height */
-  margin: 0; /* Remove any default margin */
-  display: flex;
-  flex-direction: column;
-}
-
-.container {
-  width: 100%;
-  flex: 1; /* Ensures the container takes up available space */
-}
-
-footer {
-  margin-top: auto; /* Pushes the footer to the bottom */
-}
-
-
-
+/* Hero Section */
 .hero-section {
-  /* Styles for hero section */
+  background-image: url('https://png.pngtree.com/thumb_back/fh260/back_pic/03/76/37/2257bea537b28e6.jpg'); 
+  background-size: cover; 
+  background-position: center; 
+  background-repeat: no-repeat; 
+  height: 500px; 
+  display: flex; 
+  align-items: center; 
+  justify-content: center; 
+  /* background: linear-gradient(to bottom, #007bff, #0056b3); */
+  color: white;
   text-align: center;
+  padding: 60px 20px;
 }
 
-
-
-.section-title {
-  font-size: 24px;
-  font-weight: bold;
-  margin-bottom: 20px;
-  text-align: left; /* Align title to the left */
+.hero-section h1 {
+  font-size: 36px;
+  margin-bottom: 10px;
+  margin-top: 30px;
 }
 
-.job-cards {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
+.hero-section p {
+  font-size: 18px;
+  margin-bottom: 30px;
+}
+
+.job-search-form {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
+
+.job-search-form input {
+  padding: 10px;
+  width: 250px;
+  font-size: 16px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+.job-search-form .btn-primary {
+  padding: 10px 20px;
+  font-size: 16px;
+  background: #0056b3;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.job-search-form .btn-primary:hover {
+  background: #004099;
+}
+
+/* Featured Jobs Section */
+.featured-jobs-section {
+  background: lightblue;
+  padding: 40px 20px;
+}
+.featured-jobs-section .container {
+  background: lightblue;
+
+  }
+
+
+.featured-jobs-section h2 {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.job-listings {
+  display: flex;
+  flex-wrap: wrap;
   gap: 20px;
+  justify-content: center;
 }
-
-.job-card {
-  padding: 20px;
-  background-color: #f9f9f9;
+.job-listings .job-card {
+  width: 340px;
+  background: lightcyan;
+  border: 1px solid #ddd;
   border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px;
   text-align: center;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  position: relative;
+  margin: 1px; /* Add spacing between cards */
   transition: transform 0.3s ease, box-shadow 0.3s ease;
+  margin-bottom: 20px;
 }
 
 .job-card h3 {
   font-size: 18px;
+  font-weight: bold;
+  color: #333;
   margin-bottom: 10px;
 }
 
 .job-card p {
   font-size: 14px;
-  margin-bottom: 15px;
+  color: #666;
+  margin: 5px 0;
 }
 
 .job-card .btn-secondary {
@@ -142,11 +159,123 @@ footer {
 }
 
 
-
-
 .job-card:hover {
-  transform: translateY(-10px); /* Hover effect: move the card up */
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Increase shadow on hover */
+  transform: translateY(-5px); /* Subtle lift effect */
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.clickable-line {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.clickable-link {
+  color: #007bff;
+  text-decoration: none;
+  font-size: 16px;
+}
+
+.clickable-link:hover {
+  text-decoration: underline;
+}
+
+/* Benefits Section */
+.benefits-section {
+  background: lightcyan;
+  padding: 40px 20px;
+}
+
+.benefits-section h2 {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.benefits {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+}
+
+.benefit-item {
+  text-align: center;
+  background: #f9f9f9;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  width: 300px;
+}
+
+.benefit-item h3 {
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+.benefit-item p {
+  font-size: 16px;
+}
+
+/* Call-to-Action Section */
+.call-to-action {
+  background: #007bff;
+  color: white;
+  text-align: center;
+  padding: 40px 20px;
+}
+
+.call-to-action h2 {
+  font-size: 28px;
+  margin-bottom: 10px;
+}
+
+.call-to-action p {
+  font-size: 18px;
+  margin-bottom: 20px;
+}
+
+.call-to-action .btn-primary,
+.call-to-action .btn-secondary {
+  display: inline-block;
+  padding: 10px 20px;
+  font-size: 16px;
+  border-radius: 5px;
+  text-decoration: none;
+  margin: 0 10px;
+  transition: all 0.3s ease;
+}
+
+.call-to-action .btn-primary {
+  background: white;
+  color: #007bff;
+}
+
+.call-to-action .btn-primary:hover {
+  background: #f1f1f1;
+}
+
+.call-to-action .btn-secondary {
+  border: 1px solid white;
+  color: white;
+}
+
+.call-to-action .btn-secondary:hover {
+  background: white;
+  color: #007bff;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .job-listings, .benefits {
+      flex-direction: column;
+      align-items: center;
+  }
+
+  .job-search-form {
+      flex-direction: column;
+  }
+
+  .job-search-form input {
+      width: 100%;
+  }
 }
 
 .clickable-line {
@@ -157,7 +286,7 @@ footer {
 .clickable-link {
   display: inline-block;
   position: relative;
-  padding: 10px 0;
+  padding: 10px 20px; /* Add horizontal padding for spacing */
   font-size: 16px;
   font-weight: bold;
   color: #000;
@@ -169,160 +298,29 @@ footer {
   content: '';
   position: absolute;
   top: 50%;
+  transform: translateY(-50%); /* Center the lines vertically */
   width: 40%;
   height: 1px;
   background-color: #000;
 }
 
 .clickable-link::before {
-  left: 0;
+  left: -50px; /* Adjust spacing on the left */
 }
 
 .clickable-link::after {
-  right: 0;
+  right: -50px; /* Adjust spacing on the right */
 }
 
 .clickable-link:hover {
-  color: #007bff;
+  color: #007bff; /* Change color on hover */
 }
 
 
 
 
 
-/* Hero Section */
-.hero-section {
-  background-color: #f4f4f4;
-  padding: 50px 20px;
-  text-align: center;
-}
 
-.hero-section h1 {
-  font-size: 2.5rem;
-  margin-bottom: 10px;
-}
-
-.hero-section .job-search-form {
-  margin-top: 20px;
-  display: flex;
-  justify-content: center;
-  gap: 10px;
-}
-
-.hero-section input {
-  padding: 10px;
-  width: 250px;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-}
-
-.hero-section .btn-primary {
-  background-color: #007bff;
-  color: #fff;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-/* Featured Jobs Section */
-.featured-jobs-section {
-  background-color: #fff;
-  padding: 20px 20px;
-}
-
-.featured-jobs-section .container h2{
-  text-align: center;
-  margin-bottom: 20px;
-}
-
-.featured-jobs-section .job-listings {
-  display: flex;
-  gap: 20px;
-  flex-wrap: wrap;
-}
-
-.job-card {
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  padding: 20px;
-  width: calc(33.333% - 20px);
-  text-align: center;
-  background: #f9f9f9;
-}
-
-.job-card h3 {
-  font-size: 1.2rem;
-  margin-bottom: 5px;
-}
-
-.job-card p {
-  margin: 5px 0;
-}
-
-.job-card .btn-secondary {
-  margin-top: 10px;
-  display: inline-block;
-  padding: 10px 15px;
-  color: #007bff;
-  text-decoration: none;
-  border: 1px solid #007bff;
-  border-radius: 5px;
-  transition: 0.3s;
-}
-
-.job-card .btn-secondary:hover {
-  background-color: #007bff;
-  color: #fff;
-}
-
-/* Benefits Section */
-.benefits-section {
-  background-color: #f4f4f4;
-  padding: 50px 20px;
-  text-align: center;
-}
-
-.benefits {
-  display: flex;
-  gap: 20px;
-  justify-content: center;
-}
-
-.benefit-item {
-  background-color: #fff;
-  padding: 20px;
-  border-radius: 5px;
-  width: 30%;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-}
-
-.benefit-item h3 {
-  margin-bottom: 10px;
-}
-
-/* Call to Action */
-.call-to-action {
-  background-color: #007bff;
-  color: #fff;
-  padding: 50px 20px;
-  text-align: center;
-}
-
-.call-to-action .btn-primary,
-.call-to-action .btn-secondary {
-  margin: 10px;
-  padding: 10px 20px;
-  color: #fff;
-  text-decoration: none;
-  border-radius: 5px;
-  background-color: #ffcc00;
-  border: none;
-}
-
-.call-to-action .btn-primary:hover {
-  background-color: #ffc107;
-}
 
 
 
@@ -515,3 +513,138 @@ footer {
   background-color: #0056b3;
   border-color: #0056b3;
 }
+
+
+
+    /* Container styling */
+    .job-card {
+        max-width: 900px;
+        margin: 50px auto;
+        padding: 20px;
+        background-color: #f9f9f9;
+        border-radius: 10px;
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+        font-family: 'Arial', sans-serif;
+    }
+
+    /* Header styling */
+    .job-header {
+        border-bottom: 2px solid #3498db;
+        padding-bottom: 15px;
+        margin-bottom: 15px;
+    }
+
+    .job-header h1 {
+        font-size: 26px;
+        margin: 0;
+        color: #2c3e50;
+    }
+
+    .job-meta {
+        font-size: 14px;
+        color: #7f8c8d;
+        margin-top: 5px;
+    }
+
+    /* Body styling */
+    .job-body h3 {
+        margin-top: 20px;
+        margin-bottom: 10px;
+        color: #2c3e50;
+        font-size: 20px;
+        border-bottom: 1px solid #ddd;
+        padding-bottom: 5px;
+    }
+
+    .job-body p {
+        line-height: 1.6;
+        margin: 5px 0 10px 0;
+        color: #555;
+    }
+
+    .job-info p {
+        font-size: 14px;
+        margin: 5px 0;
+    }
+
+    .job-info strong {
+        color: #2c3e50;
+    }
+
+    /* Footer styling */
+    .job-footer {
+        margin-top: 20px;
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+    }
+
+    .btn {
+        text-decoration: none;
+        padding: 10px 15px;
+        border-radius: 5px;
+        font-size: 14px;
+        text-align: center;
+        margin: 5px 0;
+    }
+
+    .btn-link {
+        background-color: transparent;
+        color: #3498db;
+        text-decoration: underline;
+    }
+
+    .btn-link:hover {
+        color: #2980b9;
+    }
+
+    .btn-primary {
+        background-color: #3498db;
+        color: #fff;
+    }
+
+    .btn-primary:hover {
+        background-color: #2980b9;
+    }
+
+    .btn-secondary {
+        background-color: #7f8c8d;
+        color: #fff;
+    }
+
+    .btn-secondary:hover {
+        background-color: #636e72;
+    }
+
+    .btn-warning {
+        background-color: #f1c40f;
+        color: #fff;
+    }
+
+    .btn-warning:hover {
+        background-color: #d4ac0d;
+    }
+
+    .btn-danger {
+        background-color: #e74c3c;
+        color: #fff;
+    }
+
+    .btn-danger:hover {
+        background-color: #c0392b;
+    }
+
+
+    footer {
+      position: fixed;
+      left: 0;
+      bottom: 0;
+      width: 100%;
+      background-color: #333; /* Change to your desired background color */
+      color: white; /* Change to your desired text color */
+      text-align: center;
+      padding: 10px;
+    }
+
+
+    

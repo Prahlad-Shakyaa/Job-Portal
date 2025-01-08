@@ -1,33 +1,44 @@
 {% extends "base.html" %}
 {% block content %}
-    <body>
+<div class="job-card">
+    <div class="job-header">
         <h1>{{ job.title }}</h1>
-        <p><strong>Company:</strong> {{ job.company_name }}</p>
-        <p><strong>Location:</strong> {{ job.location }}</p>
-        <p><strong>Job Type:</strong> {{ job.job_type }}</p>
-        <p><strong>Description:</strong></p>
-        <p>{{ job.description }}</p>
-        <p><strong>Requirements:</strong></p>
-        <p>{{ job.requirements }}</p>
-        <p><strong>Salary:</strong> {{ job.salary|default:"Not specified" }}</p>
-        <p><strong>Application Deadline:</strong> {{ job.application_deadline|date:"F j, Y" }}</p>
-        <p><strong>Posted by:</strong> {{ job.created_by.username }}</p>
-        <p><strong>Posted on:</strong> {{ job.created_at|date:"F j, Y" }}</p>
+        <p class="job-meta">
+            <strong>Company:</strong> {{ job.company_name }} |
+            <strong>Location:</strong> {{ job.location }} |
+            <strong>Job Type:</strong> {{ job.job_type }}
+        </p>
+    </div>
 
-        <a href="{% url 'job_update' job.pk %}">Edit</a> 
-        <a href="{% url 'job_delete' job.pk %}">Delete</a>
-        <br>
-        <a href="{% url 'job_list' %}">Back to Job List</a>
-        <br><br>
+    <div class="job-body">
+        <h3>Description</h3>
+        <p>{{ job.description }}</p>
+
+        <h3>Requirements</h3>
+        <p>{{ job.requirements }}</p>
+
+        <div class="job-info">
+            <p><strong>Salary:</strong> {{ job.salary|default:"Not specified" }}</p>
+            <p><strong>Application Deadline:</strong> {{ job.application_deadline|date:"F j, Y" }}</p>
+            <p><strong>Posted by:</strong> {{ job.created_by.username }}</p>
+            <p><strong>Posted on:</strong> {{ job.created_at|date:"F j, Y" }}</p>
+        </div>
+    </div>
+
+    <div class="job-footer">
+        <a href="{% url 'job_list' %}" class="btn btn-link">Back to Job List</a>
 
         {% if user.is_authenticated and is_job_seeker %}
-            <a href="{% url 'job_apply' job.pk %}" class="btn btn-primary">Apply</a>
-        {% else %}
-            <p>Button not visible because you're not a Job Seeker.</p>
+            <a href="{% url 'job_apply' job.pk %}" class="btn btn-primary">Apply Now</a>
         {% endif %}
-    
+
         {% if user.is_authenticated and is_employer %}
             <a href="{% url 'view_applicants' job.pk %}" class="btn btn-secondary">View Applicants</a>
+            <a href="{% url 'job_update' job.pk %}" class="btn btn-warning">Edit Job</a>
+            <a href="{% url 'job_delete' job.pk %}" class="btn btn-danger">Delete Job</a>
         {% endif %}
-    </body>
+    </div>
+</div>
+
+
 {% endblock content %}
