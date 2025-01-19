@@ -25,4 +25,5 @@ urlpatterns = [
     path('',include('jobs.urls')),
     path('',include('design.urls')),
     path('',include('profilee.urls')),
+    path('',include('blog.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

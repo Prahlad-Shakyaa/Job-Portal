@@ -18,6 +18,3 @@ class JobApplicationAdmin(admin.ModelAdmin):
     ordering = ('-applied_at',)  # Order by most recent application by default
 
 admin.site.register(JobApplication, JobApplicationAdmin)
-
-
-

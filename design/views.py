@@ -3,6 +3,8 @@ from profilee.models import JobSeeker
 from profilee.models import Employer
 from django.shortcuts import render, redirect
 from .forms import ContactForm
+from django.core.mail import send_mail
+
 
 def homepage(request):
     # Fetch the latest 3 job posts
@@ -38,8 +40,20 @@ def contact_us(request):
     if request.method == 'POST':
         form = ContactForm(request.POST)
         if form.is_valid():
-            form.save()  # Save the form data to the database
-            return redirect('thank_you')  # Redirect to a "Thank You" page or the same page
+            # Save the form data to the database
+            form.save()
+
+            # Send an email
+            subject = f"New Contact Us Message from {form.cleaned_data['name']}"
+            message = f"Message from: {form.cleaned_data['name']}\nEmail: {form.cleaned_data['email']}\n\n{form.cleaned_data['message']}"
+            from_email = form.cleaned_data['email']
+            recipient_list = ['prahladshakya2058@gmail.com']  # The recipient email address
+
+            # Send the email
+            send_mail(subject, message, from_email, recipient_list)
+
+            # Redirect to a "Thank You" page or the same page
+            return redirect('thank_you')  # Adjust the redirect as needed
     else:
         form = ContactForm()
 

@@ -52,7 +52,8 @@ INSTALLED_APPS = [
     'authentication',
     'jobs',
     'design',
-    'profilee'
+    'profilee',
+    'blog'
 ]
 
 MIDDLEWARE = [

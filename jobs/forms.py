@@ -26,7 +26,28 @@ class JobPostForm(forms.ModelForm):
         }
 
 
+# class JobApplicationForm(forms.ModelForm):
+#     class Meta:
+#         model = JobApplication
+#         fields = ['resume', 'cover_letter']
+
+
 class JobApplicationForm(forms.ModelForm):
     class Meta:
         model = JobApplication
-        fields = ['resume', 'cover_letter']
+        fields = [
+            'full_name',
+            'email',
+            'phone_number',
+            'address',
+            'resume',
+            'cover_letter'
+        ]
+        widgets = {
+            'full_name': forms.TextInput(attrs={'class': 'form-control','placeholder': 'Enter your full name'}),
+            'email': forms.EmailInput(attrs={'class': 'form-control','placeholder': 'Enter your email'}),
+            'phone_number': forms.TextInput(attrs={'placeholder': 'Enter your phone number' }),
+            'address': forms.Textarea(attrs={'class': 'form-control','placeholder': 'Enter your address', 'rows': 3 }),
+            'resume': forms.ClearableFileInput(attrs={'class': 'form-control'}),
+            'cover_letter': forms.Textarea(attrs={'class': 'form-control','placeholder': 'Write your cover letter here...', 'rows': 4}),
+        }

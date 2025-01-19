@@ -30,19 +30,27 @@ class JobPost(models.Model):
     
 
 
+# class JobApplication(models.Model):
+#     user = models.ForeignKey(User, on_delete=models.CASCADE)
+#     job = models.ForeignKey(JobPost, on_delete=models.CASCADE)
+#     resume = models.FileField(upload_to='resumes/')
+#     cover_letter = models.TextField(blank=True, null=True)
+#     applied_at = models.DateTimeField(auto_now_add=True)    
+
+#     def __str__(self):
+#         return f"{self.user.username} applied for {self.job.title}"
+    
+
 class JobApplication(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     job = models.ForeignKey(JobPost, on_delete=models.CASCADE)
     resume = models.FileField(upload_to='resumes/')
     cover_letter = models.TextField(blank=True, null=True)
-    applied_at = models.DateTimeField(auto_now_add=True)    
+    full_name = models.CharField(max_length=255, blank=True, null=True)  # Full name of the user
+    email = models.EmailField(blank=True, null=True)
+    phone_number = models.CharField(max_length=15, blank=True, null=True)  # Optional phone number
+    address = models.TextField(blank=True, null=True)  # Optional address
+    applied_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return f"{self.user.username} applied for {self.job.title}"
-    
-
-
-
-
-
-
+        return f"{self.full_name} applied for {self.job.title}"

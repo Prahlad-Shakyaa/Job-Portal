@@ -8,6 +8,7 @@
         <!-- Centered Navigation -->
         <div class="d-flex justify-content-center">
             <a href="{% url 'home' %}" class="text-white text-decoration-none mx-3">Home</a>
+            <a href="{% url 'blog_list' %}" class="text-white text-decoration-none mx-3">Blog</a>
             <a href="{% url 'about' %}" class="text-white text-decoration-none mx-3">About</a>
             <a href="{% url 'contact_us' %}" class="text-white text-decoration-none mx-3">Contact Us</a>
             {% if user.is_authenticated %}
@@ -40,11 +41,20 @@
                 
                 <form action="{% url 'logout' %}" method="POST" style="display: inline;">
                     {% csrf_token %}
-                    <button type="submit" class="btn btn-link text-white text-decoration-none p-0 mx-3">Logout</button>
+                    <!-- <button type="submit" class="btn btn-link text-white text-decoration-none p-0 mx-3">Logout</button> -->
+                    <button type="submit" class="btn btn-danger mx-3">Logout</button>
+
                 </form>
             {% else %}
-                <a href="{% url 'login' %}" class="text-white text-decoration-none mx-3">Login</a>
-                <a href="{% url 'register' %}" class="text-white text-decoration-none mx-3">Signup</a>
+                <!-- <a href="{% url 'login' %}" class="text-white text-decoration-none mx-3">Login</a>
+                <a href="{% url 'register' %}" class="text-white text-decoration-none mx-3">Signup</a> -->
+                <form action="{% url 'login' %}" method="get" style="display:inline;">
+                    <button type="submit" class="btn btn-primary mx-3">Login</button>
+                </form>
+                <form action="{% url 'register' %}" method="get" style="display:inline;">
+                    <button type="submit" class="btn btn-success mx-3">Signup</button>
+                </form>
+                
             {% endif %}
         </div>
         

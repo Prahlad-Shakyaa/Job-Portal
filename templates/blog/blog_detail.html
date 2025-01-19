@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1 class="text-primary">{{ post.title }}</h1>
+    <img src="{{ post.image.url }}" alt="{{ post.title }}" class="img-fluid rounded mb-4">
+    <small class="text-muted">Published on: {{ post.published_date }} by {{ post.author }}</small>
+    <div class="mt-4">
+        <p>{{ post.content }}</p>
+    </div>
+    <a href="{% url 'blog_list' %}" class="btn btn-secondary mt-4">Back to Blogs</a>
+    {% if user.is_authenticated and user == post.author %}
+    <a href="{% url 'blog_edit' post.id %}" class="btn btn-warning mt-4">Edit</a>
+    <form method="POST" action="{% url 'blog_delete' post.id %}" style="display:inline;">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger mt-4">Delete</button>
+    </form>
+    {% endif %}
+</div>
+{% endblock %}

@@ -122,20 +122,37 @@ def job_delete(request, pk):
 
 
 def apply_job(request, job_id):
-    job = get_object_or_404(JobPost, pk=job_id)
+    job = JobPost.objects.get(id=job_id)
+    
+    # Check if the user has already applied for this job
+    if JobApplication.objects.filter(user=request.user, job=job).exists():
+        # If the user has already applied, show a message
+        messages.info(request, 'You have already applied for this job.')
+        return redirect('job_list')  # Redirect to the job list or appropriate page
+    
     if request.method == 'POST':
         form = JobApplicationForm(request.POST, request.FILES)
         if form.is_valid():
-            application = form.save(commit=False)
-            application.user = request.user
-            application.job = job
-            application.save()
-            return redirect('job_detail', pk=job.pk)  # Replace with your job detail URL name
+            job_application = form.save(commit=False)
+            job_application.user = request.user
+            job_application.job = job
+            job_application.full_name = form.cleaned_data['full_name']
+            job_application.email = form.cleaned_data['email']
+            job_application.phone_number = form.cleaned_data.get('phone_number', '')
+            job_application.address = form.cleaned_data.get('address', '')
+            job_application.save()
+
+            messages.success(request, 'Your application has been successfully submitted!')
+            return redirect('job_list')  # Adjust redirect as needed
+        else:
+            messages.error(request, 'There was an error with your application. Please try again.')
     else:
-        form = JobApplicationForm()
-
+        initial_data = {
+            'full_name': f"{request.user.first_name} {request.user.last_name}",
+            'email': request.user.email,
+        }
+        form = JobApplicationForm(initial=initial_data)
     return render(request, 'jobs/apply_job.html', {'form': form, 'job': job})
-
 
 
 
