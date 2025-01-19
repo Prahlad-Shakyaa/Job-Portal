@@ -17,10 +17,6 @@
                 {% elif employer %}
                     <a href="{% url 'employer_profile' %}" class="text-white text-decoration-none mx-3">Profile</a>
                     <a href="{% url 'all_applicants' %}" class="text-white text-decoration-none mx-3">Applicants</a>
-                    {% comment %} <a href="{% url 'view_applicants' job.pk %}" class="btn btn-secondary">View Applicants</a> {% endcomment %}
-
-                {% else %}
-                    {% comment %} <a href="#" class="text-white text-decoration-none mx-3">Profile</a> {% endcomment %}
                 {% endif %}
             {% endif %}
         </div>
@@ -35,7 +31,7 @@
                     {% if user.jobseeker.image %}
                         <img src="{{ user.jobseeker.image.url }}" alt="Profile Photo" class="img-fluid rounded-circle shadow-sm mx-3" style="width: 40px; height: 40px; object-fit: cover;">
                     {% else %}
-                        <img src="https://via.placeholder.com/40" alt="Default Profile Photo" class="img-fluid rounded-circle shadow-sm mx-3" style="width: 40px; height: 40px; object-fit: cover;">
+                        <img src="/static/images/default.jpg" alt="Default Profile Photo" class="img-fluid rounded-circle shadow-sm mx-3" style="width: 40px; height: 40px; object-fit: cover;">
                     {% endif %}
                 </div>
                 

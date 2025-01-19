@@ -19,6 +19,12 @@
         </div>
         {% endfor %}
     </div>
-    <a href="{% url 'blog_create' %}" class="btn btn-success mt-4">Create New Blog</a>
+    
+    {% if user.is_authenticated %}
+        {% if user.employer %}
+            <a href="{% url 'blog_create' %}" class="btn btn-success mt-4">Create New Blog</a>
+        {% endif %}
+    {% endif %}
+
 </div>
 {% endblock %}

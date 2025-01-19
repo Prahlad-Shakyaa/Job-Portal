@@ -14,13 +14,13 @@ class Blog(models.Model):
         return self.title
     
 
-class BlogPost(models.Model):
-    title = models.CharField(max_length=200)
-    author = models.ForeignKey(User, on_delete=models.CASCADE)
-    content = models.TextField()
-    image = models.ImageField(upload_to='blog/images/')
-    published_date = models.DateField(auto_now_add=True)
-    short_description = models.CharField(max_length=300)
+# class BlogPost(models.Model):
+#     title = models.CharField(max_length=200)
+#     author = models.ForeignKey(User, on_delete=models.CASCADE)
+#     content = models.TextField()
+#     image = models.ImageField(upload_to='blog/images/')
+#     published_date = models.DateField(auto_now_add=True)
+#     short_description = models.CharField(max_length=300)
 
-    def __str__(self):
-        return self.title
+#     def __str__(self):
+#         return self.title

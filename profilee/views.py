@@ -7,15 +7,14 @@ from django.contrib import messages
 
 
 
-from django.shortcuts import render, redirect
 
 def role_selection(request):
     if request.user.is_authenticated:
         if request.user.groups.filter(name='JobSeeker').exists():
-            return redirect('job_seeker_dashboard')  # Replace with your actual URL name for the Job Seeker dashboard
+            return redirect('job_seeker_dashboard')  
         elif request.user.groups.filter(name='Employer').exists():
-            return redirect('employer_dashboard')  # Replace with your actual URL name for the Employer dashboard
-    return redirect('home')  # Fallback if the user is not authenticated or has no role
+            return redirect('employer_dashboard')  
+    return redirect('home')  
 
 
 

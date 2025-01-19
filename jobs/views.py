@@ -55,7 +55,7 @@ def job_list(request):
 
 # View a single job post
 def job_detail(request, pk):
-    job = get_object_or_404(JobPost, pk=pk)  # Assuming `JobPost` is your model
+    job = get_object_or_404(JobPost, pk=pk)  
     is_job_seeker = False
     is_employer = False
 

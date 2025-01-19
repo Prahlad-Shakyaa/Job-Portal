@@ -1,11 +1,15 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
+
+from profilee.models import Employer
 from .models import Blog
 from .forms import BlogForm
 
 def blog_list(request):
     posts = Blog.objects.all().order_by('-published_date')
-    return render(request, 'blog/blog_list.html', {'posts': posts})
+    employer = request.user.groups.filter(name="Employer").exists() if request.user.is_authenticated else False
+    return render(request, 'blog/blog_list.html', {'posts': posts, 'employer': employer})
+
 
 def blog_detail(request, pk):
     post = get_object_or_404(Blog, pk=pk)
@@ -13,6 +17,11 @@ def blog_detail(request, pk):
 
 @login_required
 def blog_create(request):
+    try:
+        # Check if the user is an employer
+        employer = request.user.employer  # This will raise an exception if not an employer
+    except Employer.DoesNotExist:
+        return redirect('not_authorized')
     if request.method == 'POST':
         form = BlogForm(request.POST, request.FILES)
         if form.is_valid():
@@ -23,6 +32,7 @@ def blog_create(request):
     else:
         form = BlogForm()
     return render(request, 'blog/blog_form.html', {'form': form})
+
 
 @login_required
 def blog_edit(request, pk):

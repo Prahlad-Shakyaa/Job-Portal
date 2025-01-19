@@ -33,28 +33,31 @@
         </div>
     </div>
 
-    <div class="benefits-section">
-        <div class="container">
-            <h2>Why Use Our Portal?</h2>
-            <div class="benefits">
-                <div class="benefit-item">
-                    <h3>For Job Seekers</h3>
-                    <p>Find the perfect job based on your skills and preferences.</p>
-                </div>
-                <div class="benefit-item">
-                    <h3>For Employers</h3>
-                    <p>Hire the best talent and grow your business with ease.</p>
+    {% if not user.is_authenticated %}
+        <div class="benefits-section">
+            <div class="container">
+                <h2>Why Use Our Portal?</h2>
+                <div class="benefits">
+                    <div class="benefit-item">
+                        <h3>For Job Seekers</h3>
+                        <p>Find the perfect job based on your skills and preferences.</p>
+                    </div>
+                    <div class="benefit-item">
+                        <h3>For Employers</h3>
+                        <p>Hire the best talent and grow your business with ease.</p>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
 
-    <div class="call-to-action">
-        <div class="container text-center">
-            <h2>Ready to Start?</h2>
-            <p>Create your account now and take the first step toward your goals.</p>
-            <a href="{% url 'register' %}" class="btn-primary">Sign Up</a>
-            <a href="{% url 'login' %}" class="btn-secondary">Log In</a>
+        <div class="call-to-action">
+            <div class="container text-center">
+                <h2>Ready to Start?</h2>
+                <p>Create your account now and take the first step toward your goals.</p>
+                <a href="{% url 'register' %}" class="btn-primary">Sign Up</a>
+                <a href="{% url 'login' %}" class="btn-secondary">Log In</a>
+            </div>
         </div>
-    </div>
+    {% endif %}
+
 {% endblock %}

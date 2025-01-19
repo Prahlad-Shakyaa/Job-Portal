@@ -17,7 +17,7 @@
                                     {% if job_seeker.image %}
                                         <img src="{{ job_seeker.image.url }}" alt="Profile Photo" class="img-fluid rounded-circle shadow-sm">
                                     {% else %}
-                                        <img src="https://via.placeholder.com/150" alt="Profile Photo" class="img-fluid rounded-circle shadow-sm">
+                                        <img src="/static/images/default.jpg" alt="Profile Photo" class="img-fluid rounded-circle shadow-sm">
                                     {% endif %}
                                 </div>
                                 <h4 class="mt-3">{{ job_seeker.name }}</h4>
